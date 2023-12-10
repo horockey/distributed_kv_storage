@@ -36,7 +36,7 @@ func New(
 	}
 }
 
-func (uc *KVManagement) Get(key string) (val map[string]any, resErr error) {
+func (uc *KVManagement) Get(key string) (map[string]any, error) {
 	dataHolder, err := uc.iman.GetDataHolder(key)
 	if err != nil {
 		err = fmt.Errorf("getting data owner for key %s from iman: %w", key, err)
@@ -44,20 +44,22 @@ func (uc *KVManagement) Get(key string) (val map[string]any, resErr error) {
 		return nil, err
 	}
 
+	var val map[string]any
+
 	switch dataHolder.Name() {
 	case uc.localHostName:
-		val, resErr = uc.localKV.Get(key)
-		if resErr != nil {
+		val, err = uc.localKV.Get(key)
+		if err != nil {
 			err = fmt.Errorf("getting data from local storage: %w", err)
 			uc.logger.Error().Err(err).Send()
 			return nil, err
 		}
 	default:
-		val, resErr = uc.remoteKV.Get(key, remote_storage.AppNode{
+		val, err = uc.remoteKV.Get(key, remote_storage.AppNode{
 			Name:    dataHolder.Name(),
 			Address: dataHolder.Address(),
 		})
-		if resErr != nil {
+		if err != nil {
 			err = fmt.Errorf("getting data from remote storage (%s): %w", dataHolder.Name(), err)
 			uc.logger.Error().Err(err).Send()
 			return nil, err
@@ -67,7 +69,7 @@ func (uc *KVManagement) Get(key string) (val map[string]any, resErr error) {
 	return val, nil
 }
 
-func (uc *KVManagement) Set(key string, val map[string]any) (resErr error) {
+func (uc *KVManagement) Set(key string, val map[string]any) error {
 	dataHolder, err := uc.iman.GetDataHolder(key)
 	if err != nil {
 		err = fmt.Errorf("getting data owner for key %s from iman: %w", key, err)
@@ -77,18 +79,18 @@ func (uc *KVManagement) Set(key string, val map[string]any) (resErr error) {
 
 	switch dataHolder.Name() {
 	case uc.localHostName:
-		resErr = uc.localKV.Set(key, val)
-		if resErr != nil {
+		err = uc.localKV.Set(key, val)
+		if err != nil {
 			err = fmt.Errorf("setting data to local storage: %w", err)
 			uc.logger.Error().Err(err).Send()
 			return err
 		}
 	default:
-		resErr = uc.remoteKV.Set(key, val, remote_storage.AppNode{
+		err = uc.remoteKV.Set(key, val, remote_storage.AppNode{
 			Name:    dataHolder.Name(),
 			Address: dataHolder.Address(),
 		})
-		if resErr != nil {
+		if err != nil {
 			err = fmt.Errorf("setting data to remote storage (%s): %w", dataHolder.Name(), err)
 			uc.logger.Error().Err(err).Send()
 			return err

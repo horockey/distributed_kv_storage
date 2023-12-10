@@ -57,7 +57,7 @@ func main() {
 		logger.With().Str("layer", "usecase").Logger(),
 	)
 
-	serviceHttpAddr := fmt.Sprintf("%s:%d", cfg.Http.BindAddr, cfg.Http.Port)
+	serviceHttpAddr := fmt.Sprintf("%s:%d", cfg.Hostname, cfg.Http.Port)
 	ctrl := http_controller.New(
 		serviceHttpAddr,
 		uc,
@@ -98,7 +98,7 @@ func main() {
 		}
 	}()
 
-	if err := registerInConsul(cfg.Hostname, serviceHttpAddr); err != nil {
+	if err := registerInConsul(cfg.Hostname, fmt.Sprintf("http://%s", serviceHttpAddr)); err != nil {
 		logger.Fatal().
 			Err(fmt.Errorf("registering in consul: %w", err)).
 			Send()

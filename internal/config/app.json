@@ -4,7 +4,6 @@
     "down_hold_duration_msec": 15000
   },
   "http":{
-    "bind_addr": "0.0.0.0",
     "port": 8080
   }  
 }

@@ -25,7 +25,7 @@ func New() *httpRemoteStorage {
 func (gw *httpRemoteStorage) Get(key string, node remote_storage.AppNode) (map[string]any, error) {
 	resp, err := gw.restClient.R().
 		SetPathParam("key", key).
-		Get(fmt.Sprintf("http://%s/kv/{key}", node.Name))
+		Get(fmt.Sprintf("%s/kv/{key}", node.Address))
 	if err != nil {
 		return nil, fmt.Errorf("executing request: %w", err)
 	}
@@ -50,7 +50,7 @@ func (gw *httpRemoteStorage) Set(key string, val map[string]any, node remote_sto
 
 	resp, err := gw.restClient.R().
 		SetBody(kv).
-		Post(fmt.Sprintf("http://%s/kv", node.Name))
+		Post(fmt.Sprintf("%s/kv", node.Address))
 	if err != nil {
 		return fmt.Errorf("executing request: %w", err)
 	}

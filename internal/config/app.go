@@ -24,7 +24,6 @@ type InstanceManager struct {
 }
 
 type Http struct {
-	BindAddr string `json:"bind_addr"`
 	Port     int    `json:"port"`
 }
 
