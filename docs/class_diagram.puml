@@ -40,6 +40,7 @@ usecase.KVManagement o-down- adapter.gateway.remote_storage.Gateway
 package controller.http_controller{
     class httpController{
         + New(uc) *httpController
+        + Start(ctx) error
     }
 }
 controller.http_controller.httpController o-down- usecase.KVManagement
