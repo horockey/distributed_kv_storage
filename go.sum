@@ -124,8 +124,8 @@ github.com/hashicorp/memberlist v0.5.0 h1:EtYPN8DpAURiapus508I4n9CzHs2W+8NZGbmmR
 github.com/hashicorp/memberlist v0.5.0/go.mod h1:yvyXLpo0QaGE59Y7hDTsTzDD25JYBZ4mHgHUZ8lrOI0=
 github.com/hashicorp/serf v0.10.1 h1:Z1H2J60yRKvfDYAOZLd2MU0ND4AH/WDz7xYHDWQsIPY=
 github.com/hashicorp/serf v0.10.1/go.mod h1:yL2t6BqATOLGc5HF7qbFkTfXoPIY0WZdWHfEvMqbG+4=
-github.com/horockey/consul_instance_manager v0.0.3 h1:FIXtLXoDCRoQj2Cz3UICGA8TeCYXADaz2kptcEkFpIM=
-github.com/horockey/consul_instance_manager v0.0.3/go.mod h1:3FDEdS18KvPK0ieF9dgaxc7I2KgHzd2wSjNfe+Ufmuc=
+github.com/horockey/consul_instance_manager v1.0.2 h1:Wu2iPoQcQJm1Zi6sZtlNdgrO+dfFQqArTOqfxD9wk30=
+github.com/horockey/consul_instance_manager v1.0.2/go.mod h1:sfGF2PyuCdBleKknS8lE7TJ5M2t8zEpi3hQJ2CPlJWo=
 github.com/horockey/go-scheduler v1.0.2 h1:nitmKEwSYkMMKtGQCMkLX7TuaNOwXlwJ9GRGfxqcytU=
 github.com/horockey/go-scheduler v1.0.2/go.mod h1:BFJUdGHbSOrcyhQXOsJfqOfKhMgccmwwvHsS7HQZcHw=
 github.com/horockey/go-toolbox v1.5.0 h1:3WXUoos4UyjNezC+3qU4OSx3oDwss9CjaRwb+UUWRGg=
