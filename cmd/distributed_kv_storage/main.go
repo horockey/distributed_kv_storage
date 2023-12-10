@@ -100,7 +100,7 @@ func main() {
 
 	if err := registerInConsul(cfg.Hostname, serviceHttpAddr); err != nil {
 		logger.Fatal().
-			Err(fmt.Errorf("registering in consul")).
+			Err(fmt.Errorf("registering in consul: %w", err)).
 			Send()
 	}
 	logger.Debug().Msg("service registered in consul")
@@ -108,7 +108,7 @@ func main() {
 	defer func() {
 		if err := deregisterFromConsul(cfg.Hostname); err != nil {
 			logger.Error().
-				Err(fmt.Errorf("deregistering from consul")).
+				Err(fmt.Errorf("deregistering from consul: %w", err)).
 				Send()
 		}
 		logger.Debug().Msg("service deregistered from consul")
