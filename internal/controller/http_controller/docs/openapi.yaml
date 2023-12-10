@@ -1,0 +1,96 @@
+openapi: 3.0.0
+
+info:
+  title: Distributed KV storage
+  version: 1.0.0
+
+paths:
+  /kv:
+    post:
+      summary: add new KV
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/KV"
+      responses:
+        200:
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KV'
+        400:
+          $ref: '#/components/responses/400'
+        500:
+          $ref: '#/components/responses/500'
+
+  /kv/{key}:
+    parameters:
+      - $ref: '#/components/parameters/key'
+    
+    get:
+      summary: get exsisting KV
+      responses:
+        200:
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KV'
+        400:
+          $ref: '#/components/responses/400'
+        500:
+          $ref: '#/components/responses/500'
+
+
+
+
+components:
+  parameters:
+    key:
+      name: key
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/Key'
+  responses:
+    400:
+      description: bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrMsg'
+    500:
+      description: internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrMsg'
+  schemas:
+    KV:
+      type: object
+      required: [key, value]
+      additionalProperties: false
+      properties:
+        key:
+          $ref: '#/components/schemas/Key'
+        value:
+          $ref: '#/components/schemas/Value'
+
+    Key:  
+      type: string
+      minLength: 1
+    
+    Value:
+      type: object
+    
+    ErrMsg:
+      type: object
+      required: [message]
+      additionalProperties: false
+      properties:
+        message:
+          type: string
+          minLength: 1
+          example: something went wrong
