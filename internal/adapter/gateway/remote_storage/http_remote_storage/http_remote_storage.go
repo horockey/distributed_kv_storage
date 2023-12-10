@@ -10,7 +10,7 @@ import (
 	"github.com/horockey/distributed_kv_storage/internal/controller/http_controller/dto"
 )
 
-var _ remote_storage.Gateway[map[string]any] = &httpRemoteStorage{}
+var _ remote_storage.Gateway = &httpRemoteStorage{}
 
 type httpRemoteStorage struct {
 	restClient *resty.Client

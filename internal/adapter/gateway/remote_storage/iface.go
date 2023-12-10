@@ -5,7 +5,7 @@ type AppNode struct {
 	Address string
 }
 
-type Gateway[V any] interface {
-	Get(key string, node AppNode) (V, error)
-	Set(key string, val V, node AppNode) error
+type Gateway interface {
+	Get(key string, node AppNode) (map[string]any, error)
+	Set(key string, val map[string]any, node AppNode) error
 }

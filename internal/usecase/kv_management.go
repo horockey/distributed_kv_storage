@@ -9,25 +9,25 @@ import (
 	"github.com/rs/zerolog"
 )
 
-type KVManagement[V any] struct {
+type KVManagement struct {
 	localHostName string
 
-	localKV local_storage.Repository[V]
+	localKV local_storage.Repository
 
-	remoteKV remote_storage.Gateway[V]
+	remoteKV remote_storage.Gateway
 	iman     *instance_manager.Client
 
 	logger zerolog.Logger
 }
 
-func New[V any](
+func New(
 	localHostName string,
-	localKV local_storage.Repository[V],
-	remoteKV remote_storage.Gateway[V],
+	localKV local_storage.Repository,
+	remoteKV remote_storage.Gateway,
 	iman *instance_manager.Client,
 	logger zerolog.Logger,
-) *KVManagement[V] {
-	return &KVManagement[V]{
+) *KVManagement {
+	return &KVManagement{
 		localHostName: localHostName,
 		localKV:       localKV,
 		remoteKV:      remoteKV,
@@ -36,12 +36,12 @@ func New[V any](
 	}
 }
 
-func (uc *KVManagement[V]) Get(key string) (val V, resErr error) {
+func (uc *KVManagement) Get(key string) (val map[string]any, resErr error) {
 	dataHolder, err := uc.iman.GetDataHolder(key)
 	if err != nil {
 		err = fmt.Errorf("getting data owner for key %s from iman: %w", key, err)
 		uc.logger.Error().Err(err).Send()
-		return *new(V), err
+		return nil, err
 	}
 
 	switch dataHolder.Name() {
@@ -50,7 +50,7 @@ func (uc *KVManagement[V]) Get(key string) (val V, resErr error) {
 		if resErr != nil {
 			err = fmt.Errorf("getting data from local storage: %w", err)
 			uc.logger.Error().Err(err).Send()
-			return *new(V), err
+			return nil, err
 		}
 	default:
 		val, resErr = uc.remoteKV.Get(key, remote_storage.AppNode{
@@ -60,14 +60,14 @@ func (uc *KVManagement[V]) Get(key string) (val V, resErr error) {
 		if resErr != nil {
 			err = fmt.Errorf("getting data from remote storage (%s): %w", dataHolder.Name(), err)
 			uc.logger.Error().Err(err).Send()
-			return *new(V), err
+			return nil, err
 		}
 	}
 
 	return val, nil
 }
 
-func (uc *KVManagement[V]) Set(key string, val V) (resErr error) {
+func (uc *KVManagement) Set(key string, val map[string]any) (resErr error) {
 	dataHolder, err := uc.iman.GetDataHolder(key)
 	if err != nil {
 		err = fmt.Errorf("getting data owner for key %s from iman: %w", key, err)

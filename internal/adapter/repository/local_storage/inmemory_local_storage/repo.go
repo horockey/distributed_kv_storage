@@ -6,27 +6,27 @@ import (
 	"github.com/horockey/distributed_kv_storage/internal/adapter/repository/local_storage"
 )
 
-var _ local_storage.Repository[struct{}] = &inmemoryLocalStorage[struct{}]{}
+var _ local_storage.Repository = &inmemoryLocalStorage{}
 
-type inmemoryLocalStorage[V any] struct {
+type inmemoryLocalStorage struct {
 	mu      sync.RWMutex
-	storage map[string]V
+	storage map[string]map[string]any
 }
 
-func New[V any]() *inmemoryLocalStorage[V] {
-	return &inmemoryLocalStorage[V]{
-		storage: map[string]V{},
+func New() *inmemoryLocalStorage {
+	return &inmemoryLocalStorage{
+		storage: map[string]map[string]any{},
 	}
 }
 
-func (repo *inmemoryLocalStorage[V]) Get(key string) (V, error) {
+func (repo *inmemoryLocalStorage) Get(key string) (map[string]any, error) {
 	repo.mu.RLock()
 	defer repo.mu.RUnlock()
 
 	return repo.storage[key], nil
 }
 
-func (repo *inmemoryLocalStorage[V]) Set(key string, val V) error {
+func (repo *inmemoryLocalStorage) Set(key string, val map[string]any) error {
 	repo.mu.Lock()
 	defer repo.mu.Unlock()
 

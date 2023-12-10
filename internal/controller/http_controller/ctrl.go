@@ -22,14 +22,14 @@ type httpController struct {
 	router *mux.Router
 	serv   *http.Server
 
-	uc *usecase.KVManagement[map[string]any]
+	uc *usecase.KVManagement
 
 	logger zerolog.Logger
 }
 
 func New(
 	adress string,
-	uc *usecase.KVManagement[map[string]any],
+	uc *usecase.KVManagement,
 	logger zerolog.Logger,
 ) *httpController {
 	ctrl := httpController{
@@ -49,12 +49,13 @@ func New(
 
 func (ctrl *httpController) Start(ctx context.Context) error {
 	errs := make(chan error)
-	defer close(errs)
 	go func() {
+		defer close(errs)
 		if err := ctrl.serv.ListenAndServe(); err != nil {
 			errs <- err
 		}
 	}()
+	ctrl.logger.Info().Str("addr", ctrl.serv.Addr).Msg("started")
 
 	select {
 	case err := <-errs:
