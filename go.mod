@@ -3,6 +3,7 @@ module github.com/horockey/distributed_kv_storage
 go 1.21.3
 
 require (
+	github.com/go-resty/resty/v2 v2.10.0
 	github.com/gorilla/mux v1.8.1
 	github.com/horockey/consul_instance_manager v0.0.1
 	github.com/horockey/go-toolbox v1.5.0
@@ -29,5 +30,6 @@ require (
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/serialx/hashring v0.0.0-20200727003509-22c0c7ab6b1b // indirect
 	golang.org/x/exp v0.0.0-20230817173708-d852ddb80c63 // indirect
+	golang.org/x/net v0.17.0 // indirect
 	golang.org/x/sys v0.13.0 // indirect
 )

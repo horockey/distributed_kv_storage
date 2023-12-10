@@ -12,9 +12,9 @@ import (
 type KVManagement[V any] struct {
 	localHostName string
 
-	localKV local_storage.Repository[string, V]
+	localKV local_storage.Repository[V]
 
-	remoteKV remote_storage.Gateway[string, V]
+	remoteKV remote_storage.Gateway[V]
 	iman     *instance_manager.Client
 
 	logger zerolog.Logger
@@ -22,8 +22,8 @@ type KVManagement[V any] struct {
 
 func New[V any](
 	localHostName string,
-	localKV local_storage.Repository[string, V],
-	remoteKV remote_storage.Gateway[string, V],
+	localKV local_storage.Repository[V],
+	remoteKV remote_storage.Gateway[V],
 	iman *instance_manager.Client,
 	logger zerolog.Logger,
 ) *KVManagement[V] {
