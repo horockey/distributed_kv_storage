@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -38,8 +39,17 @@ func (ctrl *httpController) kvGetKey(w http.ResponseWriter, req *http.Request) {
 
 func (ctrl *httpController) kvPost(w http.ResponseWriter, req *http.Request) {
 	kv := dto.KV{}
+	data, err := io.ReadAll(req.Body)
+	if err != nil {
+		http_helpers.RespondWithErr(
+			w,
+			http.StatusBadRequest,
+			fmt.Errorf("reading body: %w", err),
+		)
+		return
+	}
 
-	if err := json.NewDecoder(req.Body).Decode(&kv); err != nil {
+	if err := json.Unmarshal(data, &kv); err != nil {
 		http_helpers.RespondWithErr(
 			w,
 			http.StatusBadRequest,
