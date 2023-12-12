@@ -12,12 +12,12 @@ import (
 
 	"github.com/google/uuid"
 	consul "github.com/hashicorp/consul/api"
-	instance_manager "github.com/horockey/consul_instance_manager"
 	"github.com/horockey/distributed_kv_storage/internal/adapter/gateway/remote_storage/http_remote_storage"
 	"github.com/horockey/distributed_kv_storage/internal/adapter/repository/local_storage/inmemory_local_storage"
 	"github.com/horockey/distributed_kv_storage/internal/config"
 	"github.com/horockey/distributed_kv_storage/internal/controller/http_controller"
 	"github.com/horockey/distributed_kv_storage/internal/usecase"
+	instance_manager "github.com/horockey/go-consul-instance-manager"
 	"github.com/rs/zerolog"
 )
 

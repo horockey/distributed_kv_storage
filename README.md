@@ -2,7 +2,7 @@
 
 Сервис распределенного Key-Value хранилища.
 
-Для обнаружения актуального списка нод использует библиотеку [consul_instance_manager](https://github.com/horockey/consul_instance_manager).
+Для обнаружения актуального списка нод использует библиотеку [consul_instance_manager](https://github.com/horockey/go-consul-instance-manager).
 
 ## Диаграмма классов
 

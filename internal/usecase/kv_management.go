@@ -3,9 +3,9 @@ package usecase
 import (
 	"fmt"
 
-	instance_manager "github.com/horockey/consul_instance_manager"
 	"github.com/horockey/distributed_kv_storage/internal/adapter/gateway/remote_storage"
 	"github.com/horockey/distributed_kv_storage/internal/adapter/repository/local_storage"
+	instance_manager "github.com/horockey/go-consul-instance-manager"
 	"github.com/rs/zerolog"
 )
 

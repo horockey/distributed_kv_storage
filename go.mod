@@ -7,7 +7,7 @@ require (
 	github.com/google/uuid v1.3.1
 	github.com/gorilla/mux v1.8.1
 	github.com/hashicorp/consul/api v1.26.1
-	github.com/horockey/consul_instance_manager v1.0.2
+	github.com/horockey/go-consul-instance-manager v1.0.4
 	github.com/horockey/go-toolbox v1.5.0
 	github.com/rs/zerolog v1.31.0
 	github.com/stretchr/testify v1.8.4
