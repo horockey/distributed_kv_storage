@@ -55,6 +55,11 @@ func (uc *KVManagement) Get(key string) (map[string]any, error) {
 			return nil, err
 		}
 	default:
+		uc.logger.Debug().
+			Str("remote host", dataHolder.Name()).
+			Str("key", key).
+			Msg("getting key from remote")
+
 		val, err = uc.remoteKV.Get(key, remote_storage.AppNode{
 			Name:    dataHolder.Name(),
 			Address: dataHolder.Address(),
