@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"crypto/sha256"
 	"errors"
 	"fmt"
 	"os"
@@ -19,6 +20,7 @@ import (
 	"github.com/horockey/distributed_kv_storage/internal/usecase"
 	instance_manager "github.com/horockey/go-consul-instance-manager"
 	"github.com/rs/zerolog"
+	"github.com/serialx/hashring"
 )
 
 func main() {
@@ -42,6 +44,10 @@ func main() {
 		instance_manager.WithLogger(logger.With().Str("layer", "instance manager").Logger()),
 		instance_manager.WithDownHoldDuration(time.Duration(cfg.InstanceManager.DownHoldDirationMsec)*time.Millisecond),
 		instance_manager.WithPollInterval(time.Duration(cfg.InstanceManager.PollIntervalMsec)*time.Millisecond),
+		instance_manager.WithBackupHashring(func(b []byte) hashring.HashKey {
+			sum := sha256.New().Sum(b)
+			return hashKey(sum)
+		}),
 	)
 	if err != nil {
 		logger.Fatal().

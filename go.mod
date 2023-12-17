@@ -7,9 +7,10 @@ require (
 	github.com/google/uuid v1.3.1
 	github.com/gorilla/mux v1.8.1
 	github.com/hashicorp/consul/api v1.26.1
-	github.com/horockey/go-consul-instance-manager v1.0.4
+	github.com/horockey/go-consul-instance-manager v1.1.1
 	github.com/horockey/go-toolbox v1.5.0
 	github.com/rs/zerolog v1.31.0
+	github.com/serialx/hashring v0.0.0-20200727003509-22c0c7ab6b1b
 	github.com/stretchr/testify v1.8.4
 	github.com/testcontainers/testcontainers-go v0.26.0
 	github.com/urfave/cli/v2 v2.26.0
@@ -62,7 +63,6 @@ require (
 	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 // indirect
 	github.com/power-devops/perfstat v0.0.0-20210106213030-5aafc221ea8c // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
-	github.com/serialx/hashring v0.0.0-20200727003509-22c0c7ab6b1b // indirect
 	github.com/shirou/gopsutil/v3 v3.23.9 // indirect
 	github.com/shoenig/go-m1cpu v0.1.6 // indirect
 	github.com/sirupsen/logrus v1.9.3 // indirect
