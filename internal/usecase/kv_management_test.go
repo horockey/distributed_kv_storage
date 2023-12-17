@@ -7,9 +7,9 @@ import (
 	"time"
 
 	"github.com/hashicorp/consul/api"
-	consul_iman "github.com/horockey/consul_instance_manager"
 	"github.com/horockey/distributed_kv_storage/internal/usecase"
 	"github.com/horockey/distributed_kv_storage/internal/usecase/mocks"
+	consul_iman "github.com/horockey/go-consul-instance-manager"
 	"github.com/rs/zerolog"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
