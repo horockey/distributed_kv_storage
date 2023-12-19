@@ -104,6 +104,7 @@ func (uc *KVManagement) Set(key string, val map[string]any) (resErr error) {
 				uc.logger.Error().Err(err).Send()
 				continue
 			}
+			continue
 		}
 		return nil
 	}
