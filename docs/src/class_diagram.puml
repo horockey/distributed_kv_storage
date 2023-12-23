@@ -44,4 +44,26 @@ package controller.http_controller{
     }
 }
 controller.http_controller.httpController o-down- usecase.KVManagement
+
+package config{
+    class Config{
+        +InstanceManagerCfg InstanceManagerCfg
+	    +HttpCfg            HttpСfg
+	    +Hostname        string
+        
+        + New() *Config
+    }
+
+    struct InstanceManagerCfg{
+        +PollIntervalMsec int 
+	    +DownHoldDirationMsec int 
+    }
+
+    struct HttpCfg{
+        +Port int
+    }
+
+    Config --> InstanceManagerCfg: contains
+    Config --> HttpCfg: contains
+}
 @enduml
